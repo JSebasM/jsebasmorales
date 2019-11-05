@@ -1,0 +1,71 @@
+package pkommit;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PKommit {
+
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        List<City> ciudades = new ArrayList<>();
+        List<String> RutaCercana = new ArrayList<>();
+        List<Integer> Ruta1 = new ArrayList<>();
+        List<Integer> Ruta2 = new ArrayList<>();
+        RutaCercana.add("Manizales");
+        RutaCercana.add(" ");
+        RutaCercana.add(" ");
+        RutaCercana.add(" ");
+        City c1 = new City();
+        c1.origen = "Manizales";
+        c1.destino = "Pereira";
+        c1.ruta = 30;
+        City c2 = new City();
+        c2.origen = "Pereira";
+        c2.destino = "Armenia";
+        c2.ruta = 30;
+        City c3 = new City();
+        c3.origen = "Armenia";
+        c3.destino = "Cali";
+        c3.ruta = 80;
+        City c4 = new City();
+        c4.origen = "Pereira";
+        c4.destino = "Cartago";
+        c4.ruta = 10;
+        City c5 = new City();
+        c5.origen = "Cartago";
+        c5.destino = "Cali";
+        c5.ruta = 40;
+        ciudades.add(c1);
+        ciudades.add(c2);
+        ciudades.add(c3);
+        ciudades.add(c4);
+        ciudades.add(c5);
+        System.out.println(ciudades);
+        //Ruta mas cercana entre Manizales - Cali
+        String origenRuta = "Manizales", temp = "";
+        int rutaCerca = Integer.MAX_VALUE, sumaGlobal = 0, tempInt = 0;
+        do{
+            for (int i = 0; i < ciudades.size(); i++) {
+                for (int j = 0; j < ciudades.size(); j++) {
+                    if (ciudades.get(j).origen == origenRuta) {
+
+                        if (ciudades.get(j).ruta < rutaCerca) {
+                            rutaCerca = ciudades.get(j).ruta;
+                            RutaCercana.set((i+1), ciudades.get(j).destino);
+                            temp = ciudades.get(j).destino;
+                            tempInt = ciudades.get(j).ruta;
+                            Ruta1.add(ciudades.get(j).ruta);
+                        }
+                    }
+                }
+                origenRuta = temp;
+                sumaGlobal += tempInt;
+                tempInt = 0;
+                rutaCerca = Integer.MAX_VALUE;
+            }
+        }while(origenRuta != "Cali");
+        //Imprimir ruta cercana
+        System.out.println("\nRuta mas cercana de Manizales a Cali: " + RutaCercana);
+    }
+}
